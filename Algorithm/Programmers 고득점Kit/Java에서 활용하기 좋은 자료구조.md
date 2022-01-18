@@ -12,7 +12,7 @@
 
 # ❗️❗️ArrayList와 LinkedList의 차이를 알아보자
 
-* [참고 Blog](https://devlog-wjdrbs96.tistory.com/64)
+- [참고 Blog](https://devlog-wjdrbs96.tistory.com/64)
 
 ### <span style="color:yellow">ArrayList</span>
 
@@ -34,10 +34,23 @@
 📌 LinkedList는 내부적으로 양방향의 연결 리스트로 구성되어 있어서 참조하려는 원소에 따라 처음부터 순방향으로 또는 역순으로 순회할 수 있습니다.
 
 ### LinkedList API
-* add(E element) : 원소를 마지막에 추가하기
-* add(int index, E element): 원소를 지정된 위치에 추가하기
 
-* remove(int index) : 원소를 삭제하기
+- add(E element) : 원소를 마지막에 추가하기
+- add(int index, E element): 원소를 지정된 위치에 추가하기
 
-* get(int index) : 인덱스에 해당하는 원소 찾아오기
-📝 LinkedList는 ArrayList와 다르게 인덱스를 통해서 검색을 하는 것이 아니라 Head에서 부터 해당 원소까지 검색해야 하기 때문에 O(n)에 찾을 수 있습니다.
+- remove(int index) : 원소를 삭제하기
+
+- get(int index) : 인덱스에 해당하는 원소 찾아오기
+  📝 LinkedList는 ArrayList와 다르게 인덱스를 통해서 검색을 하는 것이 아니라 Head에서 부터 해당 원소까지 검색해야 하기 때문에 O(n)에 찾을 수 있습니다.
+
+# 문제를 해결하기 위한 사고력
+
+## 📌 큐를 활용하기 위한 관련된 자료형 선언 및 메서드
+
+- 📝 Queue<Integer> q = new LinkedList<>(); : 링크드리스트를 활용한 큐
+- 📌 q.offer(); 큐에 데이터 삽입 📌 q.poll(); 맨 앞 데이터 삭제 📌 q.peek(); 맨 앞 요소 값 확인
+- 📌 q.length or q.size();
+
+## Java는 객체 지향적으로 접근이 가능하다.
+
+- 클래스 내 inner class를 생성하여 객체로서 요소들을 생각할 수 있다.
