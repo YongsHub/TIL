@@ -75,3 +75,51 @@
 
 - 🔴 Hash의 핵심은 KEY와 VALUE 입니다. Key와 Value가 한 쌍으로 존재하며, 우리는 Key와 Value의 쌍을 Hash Table이라고 부릅니다. Key는 Hash에서 매핑할 때 사용하는 인덱스라고 생각하면 된다. Key는 절대로 중복되지 않는다는 특징을 가지고 있다.
 - ❗️ 만약 같은 Key에 값을 넣으면 이전 값은 사라지고 나중에 들어온 값만 남는다. Value는 Key로 매핑했을 때 나오는 값을 말한다.
+
+## Hash가 제시된 이유가 무엇일까?
+
+- ArrayList와 LinkedList의 한계를 극복하기 위해서 제시된 방법이라고 생각하면 된다.
+
+<span style="color:yellow">데이터 추가/삭제 시, 기존 데이터를 밀어내거나 당기는 작업이 필요하지 않음, 특별한 알고리즘을 이용하여 데이터와 연관된 고유 숫자를 만들어서 인덱스로 사용</span>
+
+- Hash Table에서 key를 테이블에 저장할 때, Key값을 hash method를 이용해 계산을 수행한 후, 그 결과값을 배열의 인덱스로 사용하여 저장한다. 여기서 key값을 계산하는 것이 hash method이다.
+
+📌 자바에서는 Object클래스의 hashcode() 메서드를 이용하여 모든 객체의 HashCode를 쉽게 구함.
+
+### HashMap 생성
+
+- HashMap<String , Integer> map = new HashMap<>();
+
+### HashMap 관련 메서드
+
+- put(K key, V value);
+  map.put("숫자",1);
+- putAll();
+  하나의 Map을 또 다른 Map에 추가할 때, 사용
+- remove(Object Key);
+  하나의 Key를 입력하여 데이터 삭제
+- size(); 개수 반환
+- values(); 저장된 요소들을 컬렉션 형태로 출력
+- isEmpty();
+- get(Object Key);
+- clear();
+- clone();
+- containsKey(Object Key);
+- containsValue(Object value);
+- entrySet();
+
+## HashMap 클래스 forEach를 활용하여 반복문을 실행하는 방법
+
+```
+HashMap<String,Integer> map = new HashMap<>();
+for(Map.Entry<String,Integer> entry : map.entrySet()){
+    entry.getValue() or entry.getKey() 를 활용하면 된다.
+}
+```
+
+## 📌 알아두면 유용한 Method
+
+- getOrDefault(Object key, V DefaultValue)
+- 매개 변수 : 이 메서드는 두 개의 매개 변수를 허용하는데, key는 값을 가져와야 하는 요소의 키입니다. defaultValue는 지정된 키로 매핑된 값이 없는 경우 반환되어야 하는 기본 값.
+
+<span style="color : yellow"> 반환 겂은 찾는 key가 존재한다면 해당 key에 매핑되어 있는 값을 반환하고, 그렇지 않으면 디폴트 값이 반환된다는 것이다.</span>
