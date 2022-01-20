@@ -191,4 +191,208 @@ data.remove(3)
 print(data) // {1, 2, 4, 5, 6}
 ```
 
-❗️ 사전 자료형과 찝합 자료형은 순서가 없기 때문에 인덱싱으로 값을 얻을 수 없습니다.
+❗️ 사전 자료형과 집합 자료형은 순서가 없기 때문에 인덱싱으로 값을 얻을 수 없습니다.
+
+# 자주 사용되는 표준 입력 방법
+
+- input() 함수는 한 줄의 문자열을 입력 받는 함수 입니다.
+- map() 함수는 리스트의 모든 원소에 각각 특정한 함수를 적용할 때 사용합니다.
+
+```
+공백을 기준으로 구분된 데이터를 입력 받을 때는
+- list(map(int, input().split())) 과 같이 사용
+공백을 기준으로 구분된 데이터의 개수가 많지 않다면, 단순히 다음과 같이 사용
+- a, b, c = map(int, input().split())
+```
+
+## 입력을 위한 전형적인 소스코드
+
+```
+n = int(input())
+data = list(map(int, input().split()))
+data.sort(reverse = True)
+print(data)
+```
+
+## 빠르게 입력 받기
+
+📌 사용자로부터 입력을 최대한 빠르게 받아야 하는 경우가 있다.
+파이썬의 경우 sys 라이브러리에 정의되어 있는 sys.stdin.readline() 메서드를 이용
+
+- 단, 입력 후 Enter가 줄 바꿈 기호로 입력되므로 rstrip() 메서드를 함께 사용합니다.
+
+```
+import sys
+
+#문자열 입력받기
+data = sys.stdin.readline().rstrip()
+print(data)
+```
+
+## f-string 예제
+
+- 파이썬 3.6부터 사용 가능하며, 문자열 앞에 접두사 'f'를 붙여 사용
+- 중괄호 안에 변수명을 기입하여 간단히 문자열과 정수를 함께 넣을 수 있음
+
+```
+answer = 7
+print(f"정답은 {answer}입니다.")
+```
+
+들여쓰기
+❗️ 파이썬 가이드 라인에서는 공백문자(space) 4개를 표준으로 두고 있다.
+
+조건문의 기본적인 형태 : if ~ elif ~ else이다.
+
+- 조건문을 사용할 때 elif 혹은 else 부분은 경우에 따라서 사용하지 않아도 된다.
+
+```
+if True or False:
+   print("Yes")
+
+if True and False:
+  print("Yes")
+```
+
+## 파이썬의 기타 연산자
+
+- 다수의 데이터를 담는 자료형을 위해 in 연산자와 not in 연산자가 제공됩니다.
+- 리스트, 튜플, 문자열, 딕셔너리 모두에서 사용이 가능하다.
+
+- pass 키워드
+  ❗️ 아무것도 처리하고 싶지 않을 때 pass 키워드를 사용합니다.
+
+- 조건부 표현식은 if~else문을 한 줄에 작성할 수 있도록 해준다.
+  answer = "Success" if a > 80 else "Fail"
+
+❗️ 코딩 테스트에서 무한 루프를 구현할 일은 거의 없으니 유의해야 한다.
+추가로, 반복문을 작성한 뒤에는 항상 반복문을 탈출할 수 있는지 확인합니다.
+
+for문을 활용하는 것이 더 효율적일 때가 많다.
+
+```
+array = [9, 8, 7, 6, 5]
+for x in array:
+    print(x)
+
+# 연속적인 값을 차례대로 순회할 때는 range()를 주로 사용합니다.
+
+for i in range(1, 10):
+    result += i
+print(result)
+
+반복문에서 남은 코드의 실행을 건너뛰고, 다음 반복을 진행하고자 할 때 continue를 사용한다.
+
+for i in range(1, 10):
+    if i % 2 == 0:
+        continue
+    result += i
+
+# break 키워드도 생각하자
+```
+
+<br><br>
+
+# 함수의 종류
+
+- 내장 함수: 파이썬이 기본적으로 제공하는 함수
+- 사용자 정의 함수: 개발자가 직접 정의하여 사용할 수 있는 함수
+
+```
+def 함수명(매개변수):
+    실행할 소스코드
+    return 반환 값
+
+def add(a, b):
+    return a + b
+
+print(add(3, 7))
+
+# global 키워드로 변수를 지정하면 해당 함수에서는 지역 변수를 만들지 않고, 함수 바깥에 선언된 변수를 바로 참조하게 된다.
+
+a = 0
+
+def func():
+    global a
+    a += 1
+    print(a)
+
+array = [1, 2, 3, 4, 5]
+def func():
+    array = [3, 4, 5]
+    array.append(6)
+    print(array)
+
+함수에서는 지역변수를 우선 순위로 참조한다.
+
+# 파이썬에서는 함수는 여러 개의 반환 값을 가질 수 있습니다.
+def operator(a, b):
+    add_var = a + b
+    subtract_var = a - b
+    multiply_var = a * b
+    divide_var = a / b
+    return add_var, subtract_var, multiply_var, divide_var
+
+a, b, c, d = operator(10, 3)
+```
+
+## 📌 람다 표현식
+
+> 람다 표현식을 이용하면 함수를 간단하게 작성할 수 있습니다. <br> \* 특정한 기능을 수행하는 함수를 한 줄에 작성할 수 있다는 점이 특징이다.
+
+```
+# 람다 표현식으로 구현한 add() 메서드
+print((lambda a, b: a + b)(3, 7))
+
+# 람다 표현식 예시 : 내장 함수에서 자주 사용되는 람다 함수
+
+array = [('홍길동', 50), ('이순신', 32), ('아무개', 74)]
+print(sorted(array, key=lambda x: x[1]))
+
+# 람다 표현식 예시: 여러 개의 리스트에 적용
+list1 = [1, 2, 3, 4, 5]
+list2 = [6, 7, 8, 9, 10]
+result = map(lambda a, b: a + b, list1, list2)
+print(list(result))
+```
+
+<br><br><br>
+
+# 실전에서 유용한 표준 라이브러리
+
+- 내장 함수 : 기본 입출력 함수부터 정렬 함수까지 기본적인 함수들을 제공합니다. 파이썬 프로그램을 작성할 때 없어서는 안되는 필수적인 기능을 포함
+- itertools: 파이썬에서 반복되는 형태의 데이터를 처리하기 위한 유용한 기능들을 제공 특히, 순열과 조합 라이브러리는 코딩 테스트에서 자주 사용됩니다.
+- heapq : 힙(자료구조)를 제공 : 일반적으로 우선순위 큐 기능을 구현하기 위해 사용된다.
+- bisect : 이진 탐색(Binary Search) 기능을 제공한다.
+- collections : 덱(deque), 카운터(Counter)등의 유용한 자료구조를 포함한다.
+- math : 필수적인 수학 기능을 제공 : 팩토리얼, 제곱근, 최대공약수, 삼각함수 관련 함수부터 파이(pi)와 같은 상수를 포함
+
+## 자주 사용되는 내장 함수
+
+```
+# sum()
+result = sum([1, 2, 3, 4, 5])
+print(result)
+
+# min(), max()
+min_result = min(7, 3, 5, 2)
+max_result = max(7, 3, 5, 2)
+print(min_result, max_result)
+
+# eval()
+result = eval("(3+5)*7")
+print(result)
+```
+
+## 파이썬 collections 라이브러리의 Counter는 등장 횟수를 세는 기능을 제공합니다.
+
+- 리스트와 같은 반복 가능한(iterable) 객체가 주어졌을 때, 내부 원소가 몇 번씩 등장했는지를 알려줍니다.
+
+```
+from collections import Counter
+
+counter = Counter(['red', 'blue', 'red', 'green', 'blue', 'blue'])
+print(counter['red']) # red가 등장한 횟수 출력
+print(counter['green']) # green이 등장한 횟수 출력
+print(dict(counter)) # 사전 자료형으로 반환
+```
