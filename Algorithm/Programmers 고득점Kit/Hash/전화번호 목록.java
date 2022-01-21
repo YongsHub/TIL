@@ -4,7 +4,6 @@ class Solution {
     public boolean solution(String[] phone_book) {
         boolean answer = true;
         HashMap<String, Integer> map = new HashMap<String, Integer>(); // 해쉬맵 클래스생성
-        Queue<String> queue = new LinkedList<>();
         int length;
         for (String number : phone_book) {
             map.put(number, number.length());
