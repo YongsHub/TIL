@@ -123,3 +123,11 @@ for(Map.Entry<String,Integer> entry : map.entrySet()){
 - 매개 변수 : 이 메서드는 두 개의 매개 변수를 허용하는데, key는 값을 가져와야 하는 요소의 키입니다. defaultValue는 지정된 키로 매핑된 값이 없는 경우 반환되어야 하는 기본 값.
 
 <span style="color : yellow"> 반환 겂은 찾는 key가 존재한다면 해당 key에 매핑되어 있는 값을 반환하고, 그렇지 않으면 디폴트 값이 반환된다는 것이다.</span>
+
+## 배열 정렬
+
+- 오름차순 : Arrays.sort(array) 내림차순 : Arrays.sort(list, Collections.reverseOrder());
+
+## ArrayList 정렬
+
+- Collections.sort(arrayList); 내림차순 : Collections.sort(arrayList, Collections.reverseOrder());
