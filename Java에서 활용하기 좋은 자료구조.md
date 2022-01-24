@@ -131,3 +131,22 @@ for(Map.Entry<String,Integer> entry : map.entrySet()){
 ## ArrayList 정렬
 
 - Collections.sort(arrayList); 내림차순 : Collections.sort(arrayList, Collections.reverseOrder());
+
+# Comparable 인터페이스를 활용한 객체 내 변수들 비교
+
+```
+# 예시
+class Music implements Comparable<music>{
+  int uniqueNumber;
+  int playingCount;
+
+  @Override
+  public int compareTo(Music music){
+    if(music.playingCount < playingCount){
+      return 1;
+    }else{
+      return -1;
+    }
+  }
+}
+```
