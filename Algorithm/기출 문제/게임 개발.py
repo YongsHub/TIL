@@ -2,7 +2,7 @@ n, m = map(int, input().split()) # N,M크기의 맵 생성
 x, y, direct = map(int, input().split()) # (x,y)에 direct를 바라보고 있는 캐릭터
 maps = [[0] * m for _ in range(n)]
 past_location = [] # 갔던 곳 위치를 저장하기 위한 리스트
-count = 0
+count = 1
 past_location.append((x,y))
 
 for i in range(n):
@@ -39,28 +39,13 @@ def move(): # 움직이는 함수
       past_location.append((x, y)) # 가본 장소로 추가
       direct = direction[num] # 방향 수정
       return 1
-  if direct == 0 or direct == 1:
-    move_x = x + dx[direct + 2]
-    move_y = y + dy[direct + 2]
-    if check(move_x, move_y) == True:
-      count += 1
-      x = move_x
-      y = move_y
-      past_location.append((x, y))
-      return 1
-    else:
-      return 0
-  else:
-    move_x = x + dx[direct - 2]
-    move_y = y + dy[direct - 2]
-    if check(move_x, move_y) == True:
-      count += 1
-      x = move_x
-      y = move_y
-      past_location.append((x, y))
-      return 1
-    else:
-      return 0
+  move_x = x - dx[direct]
+  move_y = y - dy[direct]
+  if check(move_x, move_y) == True:
+    x = move_x
+    y = move_y
+    return 1
+  else: return 0
       
     
      
