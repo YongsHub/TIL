@@ -1,5 +1,6 @@
 # Greedy Algorithm
 
+[참고 내용 링크](https://youtube.com/playlist?list=PLRx0vPvlEmdAghTr5mXQxGpHjWqSz0dgC)<br>
 그리디 알고리즘은 단순하지만 강력한 문제 해결 방법
 이 알고리즘 유형은 국내 알고리즘 교재에서 탐욕법으로 소개한다.
 
