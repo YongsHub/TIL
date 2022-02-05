@@ -6,7 +6,7 @@ start = 0
 end = max(array)
 
 result = 0
-while(start <= end):
+while(start <= end): # 이진탐색 사용
     total = 0
     mid = (start + end) // 2
     for x in array:
