@@ -1,5 +1,6 @@
 # DFS
 
+[참고 내용 링크](https://youtube.com/playlist?list=PLRx0vPvlEmdAghTr5mXQxGpHjWqSz0dgC)<br>
 Depth-First-Search, 깊이 우선 탐색이라고도 부르며, 그래프에서 깊은 부분을 우선적으로 탐색하는 알고리즘이다. DFS를 설명하기 이전, 그래프의 기본 구조에 대해 공부하는 것이 좋다.
 
 ## 📌 프로그래밍에서 그래프는 크게 2가지 방식으로 표현할 수 있는데 코딩 테스트에서는 이 두방식 모두 필요하니 두 개념에 대해 바르게 이해해야 한다.

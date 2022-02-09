@@ -1,5 +1,6 @@
 # BFS
 
+[참고 내용 링크](https://youtube.com/playlist?list=PLRx0vPvlEmdAghTr5mXQxGpHjWqSz0dgC)<br>
 Breadth First Search 알고리즘은 너비 우선 탐색이라는 의미를 가진다. 쉽게 말해 가까운 노드부터 탐색하는 알고리즘이다. DFS는 최대한 멀리 있는 노드를 우선으로 탐색하는 방식으로 동작한다고 했는데, BFS는 그 반대이다.
 
 - 📌 BFS 구현에서는 선입 선출 방식인 큐 자료구조를 이용하는 것이 정석이다.
