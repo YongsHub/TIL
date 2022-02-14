@@ -122,3 +122,38 @@ N \_ M 크기의 얼음 틀이 있다. 구멍이 뚫려 있는 부분은 0, 칸�
 ## ❗️ 출력 조건
 
 - 한 번에 만들 수 있는 아이스크림의 개수를 출력 한다.
+
+## 정답 코드
+
+```
+n, m = map(int, input().split())
+arr = [[0] * m for i in range(n)]
+
+for i in range(len(arr)):
+  arr[i] = list(map(int, input()))
+
+
+def dfs(x, y):
+  if x < 0 or y < 0 or x >= n or y >= m:
+    return False
+
+  if arr[x][y] != 0: # 1이라면 False
+    return False
+  else:
+    arr[x][y] = 1 # 방문했다는 의미로 1로 만들어준다.
+    dfs(x - 1, y) # 상
+    dfs(x + 1, y) # 하
+    dfs(x, y - 1) # 좌
+    dfs(x, y + 1) # 우
+    return True
+
+
+result = 0
+
+for i in range(n):
+  for j in range(m):
+    if dfs(i, j) == True:
+      result += 1
+
+print(result)
+```
