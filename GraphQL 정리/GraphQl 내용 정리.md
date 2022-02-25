@@ -81,3 +81,8 @@ scripts -> "start": "nodemon --exec babel-node index.js"
 ## 📝 graphQL Resolvers 란 무엇일까?
 
 > 먼저, GraphQL 서버에서 요청을 받으면 GraphQL 서버가 Query나 Mutation의 정의를 발견하고 GraphQL API 요청에 맞게 전반적인 CRUD 결과물을 수행해줍니다.
+
+### 📝 단순히 query 하고 mutation 하는 것은 Memory 상에서 수행 되기 때문에 Server를 껐다가 키면 원래 상태로 돌아간다.
+
+- ❗️ 어느 Backend를 사용하더라도, GraphQL을 적용할 수 있는데 사용할 수 있는 Backend 중 하나는 다른 API인 REST API가 있다.
+- yts.mx 에서 제공하는 REST interface를 통해 활용하기.
