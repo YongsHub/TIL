@@ -60,3 +60,24 @@ Example
     }
 }
 ```
+
+```
+#Set up
+yarn add graphql-yoga
+yarn global add nodemon
+yarn add @babel/core --dev
+yarn add @babel/preset-env --dev
+yarn add @babel/node --dev
+echo '{"presets": ["@babel/preset-env"]}' > babel.config.json
+yarn start
+
+scripts -> "start": "nodemon --exec babel-node index.js"
+```
+
+## 📝 schema.graphql
+
+> 여기서는 사용자가 뭘 할지에 대해 작성하는 곳이다. query, mutation 등등 작성해야 한다.
+
+## 📝 graphQL Resolvers 란 무엇일까?
+
+> 먼저, GraphQL 서버에서 요청을 받으면 GraphQL 서버가 Query나 Mutation의 정의를 발견하고 GraphQL API 요청에 맞게 전반적인 CRUD 결과물을 수행해줍니다.
