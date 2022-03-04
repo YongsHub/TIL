@@ -1,0 +1,2 @@
+SELECT COUNT(distinct NAME) AS count
+FROM ANIMAL_INS;
