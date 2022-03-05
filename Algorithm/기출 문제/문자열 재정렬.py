@@ -1,13 +1,18 @@
-# n = list(input())
+import sys
+f = sys.stdin.readline
 
-# addResult = 0
-# for i in n:
-#     if 48 <= ord(i) <= 57:
-#         addResult += int(i)
-#         print(i)
-#         n.remove(i)
+data = f().rstrip()
 
-# n.sort()
-# n.append(str(addResult))
-# print(''.join(n))
-print(ord('1'))
+newData = []
+result = 0
+for i in data:
+    if i.isalpha():
+        newData.append(i)
+    else:
+        result += int(i)
+
+newData.sort()
+
+newData.append(str(result))
+
+print(''.join(newData))
