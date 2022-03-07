@@ -420,3 +420,15 @@ chr(97) : 'a'를 반환
 import sys
 f = sys.stdin.readline # 시간 초과를 발생 시키지 않도록 도와줌.
 ```
+
+## 파이썬 Tuple 첫 번째 원소 내림차순 정렬, 첫 번째 원소가 같은 경우 두 번째 원소로 오름차순 정렬
+
+```
+list.sort(key=lambda x:(-x[0], x[1]))
+```
+
+## 파이썬 Tuple 첫 번째 원소 오름차순 정렬, 첫 번째 원소가 같은 경우 두 번째 원소로 내림차순 정렬
+
+```
+list.sort(key=lambda x:(x[0], -x[1]))
+```
