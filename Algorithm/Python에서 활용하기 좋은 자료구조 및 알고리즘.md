@@ -432,3 +432,15 @@ list.sort(key=lambda x:(-x[0], x[1]))
 ```
 list.sort(key=lambda x:(x[0], -x[1]))
 ```
+
+## collections의 defaultdict()
+
+- defaultdict()는 딕셔너리를 만드는데 dict 클래스의 서브 클래스이다. defaultdict() 인자로 주어진 객체의 기본 값을 딕셔너리의 초기값으로 지정할 수 있다.
+
+```
+#EX
+dict_int = defaultdict(int)
+dict_int['key'] # 0으로 초기화
+dict_list = defaultdict(list)
+dict_list['key'] # [] 로 초기화
+```
