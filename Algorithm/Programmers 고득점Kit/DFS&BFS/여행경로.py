@@ -1,40 +1,35 @@
-# from collections import deque
+from collections import defaultdict
 
 
-# def bfs(tickets):
-#     queue = deque([])  # 데큐 선언
-#     queue.append(('ICN', 'ICN'))
-#     answer = []
+def solution(tickets):
 
-#     while queue:
-#         visit, arrived = queue.popleft()  # 큐에 들어있는 도시 pop
-#         temp = []
-#         if len(tickets) == 0:
-#             answer.append(arrived)
-#             return answer
+    def init_graph(tickets):
+        routes = defaultdict(list)
 
-#         for start, arrive in tickets:
-#             if arrived == start:  # 도착한 공항 목록이 같을 때
-#                 temp.append((start, arrive))
+        for ticket in tickets:
+            routes[ticket[0]].append(ticket[1])
 
-#         if len(temp) == 0 and len(tickets) > 0:
-#             answer.pop()
-#             for start, arrive in tickets:  # 티켓의 목적지가 출발지가 되는 경우가 존재하지 않을 때
-#                 if visit == start:
-#                     temp.append((start, arrive))
-#             tickets.append([visit, arrived])
+        return routes
 
-#         temp.sort(key=lambda x: x[1])  # 경우가 여러 개인 경우 알파벳으로 정렬
-#         info = temp[0]
-#         answer.append(info[0])
-#         queue.append((info[0], info[1]))
-#         tickets.remove([info[0], info[1]])
+    def dfs(routes):
+        stack = ['ICN']
+        path = []
 
+        while len(stack) > 0:
+            top = stack[-1]
 
-# def solution(tickets):
-#     answer = bfs(tickets)
-#     return answer
-lst = [[1, 2], [3, 4]]
-lst1 = [[1, 2]]
-lst = lst - lst1
-print(lst)
+            if top not in routes or len(routes[top]) == 0:
+                path.append(stack.pop())
+            else:
+                stack.append(routes[top].pop(0))
+
+        return path
+
+    routes = init_graph(tickets)
+    for route in routes:
+        routes[route].sort()
+
+    answer = dfs(routes)
+    answer.reverse()
+
+    return answer
