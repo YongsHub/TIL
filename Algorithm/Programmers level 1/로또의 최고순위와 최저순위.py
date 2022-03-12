@@ -21,7 +21,7 @@ def solution(lottos, win_nums):
         elif i == 0:
             zero += 1
 
-    answer.append(ranking[correct + zero])  # 최고순위
+    answer.append(ranking[correct + zero])  # 최고순위1
     answer.append(ranking[correct])  # 최저순위
 
     return answer
