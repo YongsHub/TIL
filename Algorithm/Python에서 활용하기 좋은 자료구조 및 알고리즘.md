@@ -444,3 +444,8 @@ dict_int['key'] # 0으로 초기화
 dict_list = defaultdict(list)
 dict_list['key'] # [] 로 초기화
 ```
+
+## replace() 메서드
+
+- replace('변경하고 싶은 문자', '변경 후 문자')
+- 변경하고 싶은 문자열이 없는 경우, 아무일도 일어나지 않고 지나갑니다.
