@@ -57,3 +57,6 @@ def solution(p):
         answer += ''.join(u)
 
     return answer
+
+# Solution 함수를 재귀로 돌리는 구현
+# 균형잡힌 문자열에 대해 생각하는 솔루션
