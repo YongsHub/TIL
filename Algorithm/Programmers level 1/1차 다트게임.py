@@ -32,3 +32,4 @@ def solution(dartResult):
             answer.append(int(i))
 
     return sum(answer)
+# 10이라는 숫자가 올 때 해결할 수 있는 방법을 -> replace 메서드로 10은 k로 변환해보는건 어떨까?
