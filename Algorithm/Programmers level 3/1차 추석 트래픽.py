@@ -1,3 +1,4 @@
+# 문제 다시 생각해보기
 def solution(lines):
     start_time = []
     end_time = []
