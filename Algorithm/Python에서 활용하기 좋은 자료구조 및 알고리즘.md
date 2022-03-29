@@ -452,4 +452,6 @@ dict_list['key'] # [] 로 초기화
 
 ### bin(): 2진수, oct(): 8진수, hex(): 16진수
 
-## isnumeric(): 정수인지 확인할 수 있는 함수
+### isnumeric(): 정수인지 확인할 수 있는 함수
+
+### import math math.gcd(n, m): 최대 공약수, n \* m // math.gcd(n, m) : 최소공배수
