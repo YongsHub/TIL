@@ -1,48 +1,68 @@
-def search(idx, board, _type, m, n):
+from collections import defaultdict
+
+
+def search(block, _type, idx, visited):
     row, col = idx
     #우, 하, 좌, 상
     dx = [0, 1, 0, -1]
     dy = [1, 0, -1, 0]
     tup = []
-    _board = []
-    for i in range(4):  # 우, 하, 좌, 상 으로 탐색하면서 _type과 같은지 비교
-        row = row + dx[i]
-        col = col + dy[i]
-        if row >= m or row < 0 or col >= n or col < 0:  # board 범위 벗어난다면
-            return False
-        if board[row][col] != _type:  # type과 같지 않다면
-            return False
+    for i in range(4):  # 표기된 방향으로 2*2인지 확인하는 작업
+        row = row + dy[i]
+        col = col + dx[i]
+        if row not in block or col < 0 or col >= len(block[row]):  # 범위 벗어나는 경우
+            return visited, False
+        if block[row][col] != _type:  # 타입 아닌 경우
+            return visited, False
         else:
-            tup.append((row, col))
+            if (row, col) not in visited:  # 중복된 값이 존재하는지 체크
+                tup.append((row, col))
+    visited.extend(tup)  # 중복되지 않는 값 뒤에 추가
+    return visited, True
 
-    print('tup', tup)
-    for i in range(len(board)):
-        row = []
-        for j in range(len(board[i])):
-            if (i, j) in tup:
+
+def changeValue(block):  # X로 변경된 값 제외하고 추가
+    newBlock = defaultdict(list)
+    for i in block:
+        for j in range(len(block[i])):
+            if block[i][j] == -1:
                 continue
-            row.append(board[i][j])
-        _board.append(row)
-    print('new board', _board)
-
-    return True
+            else:
+                newBlock[i].append(block[i][j])
+    return newBlock
 
 
 def solution(m, n, board):
     answer = 0
-    _type = ''
-    for i in board:
-        _type += i
-    types = set(_type)  # 블록 종류
-    board = [list(i) for i in board]  # board 요소 list로 변경
-    print(board)
-    count = 0
-    for _type in types:
-        for i in range(len(board)):
-            for j in range(len(board[i])):
-                if board[i][j] == _type:
-                    if search((i, j), board, _type, m, n):
-                        count += 1
+    block = defaultdict(list)
+    board = reversed(board)
+    board = [list(boards) for boards in board]
+    types = []
 
-    print(count)
+    for i in range(n):
+        for j in range(m):
+            block[i].append(board[j][i])
+            if 'A' <= board[j][i] <= 'Z':
+                types.append(board[j][i])
+    types = set(types)
+
+    while True:
+        visited = []
+        count = 0
+        for _type in types:
+            for i in range(len(block)):
+                for j in range(len(block[i])):
+                    if _type == block[i][j]:  # 검색하려는 종류와 같다면
+                        visited, check = search(block, _type, (i, j), visited)
+                        if check:
+                            count += 1
+        if count == 0:
+            return answer
+        else:
+            answer += len(visited)
+
+        for row, col in visited:
+            block[row][col] = -1
+
+        block = changeValue(block)
     return answer
