@@ -26,10 +26,9 @@ def changeValue(block):  # X로 변경된 값 제외하고 추가
     newBlock = defaultdict(list)
     for i in range(len(block)):
         for j in range(len(block[i])):
-            if block[i][j] == -1:
-                continue
-            else:
+            if block[i][j] != -1:
                 newBlock[i].append(block[i][j])
+
     return newBlock
 
 
@@ -60,4 +59,5 @@ def solution(m, n, board):
             block[row][col] = -1
 
         block = changeValue(block)
+        print(block)
     return answer
