@@ -1,44 +1,24 @@
-N = int(input())  # N 입력 받음
+import sys
+input = sys.stdin.readline
 
 
-def makeVisited(chess, i, j, N):
-    check = True
-    for row in range(N):
-        check = False
-        for col in range(N):
-            if row == i or col == j:  # 같은 행 또는 같은 열이라면
-                check = True
-                chess[row][col] = 1
-                continue
-            if row > i:
-                checkRow = row - i
-            else:
-                checkRow = i - row
-
-            if col > j:
-                checkCol = col - j
-            else:
-                checkCol = j - col
-
-            if checkRow == checkCol:
-                check = True
-                chess[row][col] = 1
-    count = 0
-    if check:  # True라면
-        if i < N - 1:
-            for col in range(len(chess[i + 1])):
-                if chess[i + 1][col] == 0:
-                    check = makeVisited(chess, i + 1, col, N)
-                    if check:
-                        count += 1
-    return check, count
+def DFS(i):
+    global N, col, slash, backSlash, case
+    if i == N:
+        case += 1
+        return
+    for j in range(N):
+        if not (col[j] or slash[i + j] or backSlash[i - j + N - 1]):
+            col[j] = slash[i + j] = backSlash[i - j + N - 1] = True
+            DFS(i + 1)
+            col[j] = slash[i + j] = backSlash[i - j + N - 1] = False
 
 
-answer = 0
-for i in range(N):
-    chess = [[0] * N for _ in range(N)]  # 체스판 초기화
-    chess[0][i] = 1  # 1로 초기화
-    check, count = makeVisited(chess, 0, i, N)
-    answer += count
+N = int(input())
+col, slash, backSlash = [False] * N, [False] * \
+    (2 * N - 1), [False] * (2 * N - 1)
+case = 0
 
-print(answer)
+DFS(0)
+
+print(case)
