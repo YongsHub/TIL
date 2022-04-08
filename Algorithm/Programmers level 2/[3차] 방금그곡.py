@@ -5,67 +5,34 @@ def timeToInt(start, end):  # HH:MM -> 몇분 차이인지 확인하기 위한 �
 
 
 def makeToLong(notes, length):
-    types = ['A', 'C', 'D', 'F', 'G']
-    lst = []
-    for index, note in enumerate(notes):
-        if note == '#':
-            continue
-        if note in types and index < len(notes) - 1 and notes[index + 1] == '#':
-            lst.append(note + '#')
-        else:
-            lst.append(note)
     while True:
-        lst = lst * 2
-        if len(lst) > length:
-            return lst
+        notes = notes * 2
+        if len(notes) > length:
+            return notes
 
 
-def makeList(m):
-    types = ['A', 'C', 'D', 'F', 'G']
-    lst = []
-    for index, note in enumerate(m):
-        if note == '#':
-            continue
-        if note in types and index < len(m) - 1 and m[index + 1] == '#':
-            lst.append(note + '#')
-        else:
-            lst.append(note)
-    return lst
-
-
-def compare(m, notes):
-    length = len(m)
-    m = ''.join(m)
-    total = len(notes)
-    for index, note in enumerate(notes):
-        if note == m[0] and index + length < total:
-            arr = ''.join(notes[index:index + length])
-            if arr == m:
-                return True
-    return False
+def makeSmall(note):
+    dictionary = {'C#': 'c', 'D#': 'd', 'F#': 'f', 'G#': 'g', 'A#': 'a'}
+    for key in dictionary:
+        note = note.replace(key, dictionary[key])  # replace는 존재하는 모든 것을 바꿔준다.
+    return note
 
 
 def solution(m, musicinfos):
-    answer = ''
-    playingTime = 0
-    startTime = 0
-    m = makeList(m)
-    for musicInfo in musicinfos:
-        start, end, title, notes = musicInfo.split(',')
+    answer = []
+    m = makeSmall(m)
+    for musicinfo in musicinfos:
+        start, end, title, notes = musicinfo.split(',')
         minutes = timeToInt(start, end)
-        if len(notes) < minutes:  # 악보 길이가 재생시간보다 짧다면
+        notes = makeSmall(notes)
+        if len(notes) < minutes:
             notes = makeToLong(notes, minutes)
-        else:
-            notes = makeList(notes)[0:minutes]
+        notes = notes[0:minutes]  # 재생 시간 만큼 자른다.
+        if m in notes:
+            answer.append((minutes, title))
+    if len(answer) == 0:
+        return "(None)"
 
-        if compare(m, notes):
-            if minutes > playingTime:
-                answer = title
-                playingTime = minutes
-                startTime = int(start[0:2]) * 60 + int(start[3:])
-            elif minutes == playingTime:
-                continue
-    if answer == '':
-        answer = None
+    answer.sort(key=lambda x: x[0], reverse=True)
 
-    return answer
+    return answer[0][1]
