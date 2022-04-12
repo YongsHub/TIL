@@ -455,3 +455,14 @@ dict_list['key'] # [] 로 초기화
 ### isnumeric(): 정수인지 확인할 수 있는 함수
 
 ### import math math.gcd(n, m): 최대 공약수, n \* m // math.gcd(n, m) : 최소공배수
+
+## heapq
+
+```
+파이썬에서는 힙 기능을 위해 heapq 라이브러리를 제공함.
+heapq는 다익스트라 최단 경로 알고리즘을 포함해 우선순위 큐 기능을 구현하고자 할 때 사용된다.
+코딩테스트 환경에서는 heapq가 PriorityQueue 라이브러리보다 빠르다.
+힙에 원소를 삽입할 때는 heapq.heappush()메서드를 사용하고, 힙에서 원소를 꺼내고자 할 때는 heapq.heappop() 메서드를 이용한다.
+
+따라서, 힙 정렬을 heapq로 구현해보자!
+```
