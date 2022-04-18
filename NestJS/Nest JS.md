@@ -18,4 +18,19 @@ Nest -> 개발자와 팀이 고도로 테스트 가능하고 확장 가능하며
 npm i -g @nestjs/cli
 
 nest new project-name
+또는 현재 위치한 폴더 내 설정은
+nest new ./
 ```
+
+## 👨‍💻 간단한 CRUD Model 만들기
+
+- 게시판을 만들기 때문에 게시글에 관한 모듈과 게시글을 만드는 사람에 대한 인증 모듈이 필요합니다. 그리고 각 모듈을 구성하는 Controller, Service, Repository 등이 있는데 이러한 용어는 Express를 사용할 때도 들어보았을 수 있지만 Nest JS에서는 어떠한 용도로 사용되는지 하나씩 알아보자
+
+## 📌 Nest JS 기본 구조 설명
+
+- eslintrc.js : 개발자들이 특정한 규칙을 가지고 코드를 깔끔하게 짤수있게 도와주는 라이브러리
+- prettierrc : 주로 코드 형식을 맞추는데 사용한다. 작은 따옴표를 사용할지 큰 따옴표를 사용할지 -> Code Formatter 역할
+- nest-cli.json : nest 프로젝트를 위해 특정한 설정을 할 수 있는 json 파일
+- tsconfig.json : 어떻게 타입스크립트를 컴파일 할지 설정
+- tsconfig.build.json : tsconfig.json의 연장선상 파일이며 build할 때 필요한 설정들 "excludes"에서 빌드할 때 필요 없는 파일들 작성
+- package.json : build -> 운영환경을 위한 빌드, format: 린트에러가 났을지 수정 start: 앱 시작
