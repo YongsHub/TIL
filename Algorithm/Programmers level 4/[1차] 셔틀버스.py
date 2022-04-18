@@ -19,7 +19,6 @@ def shuttleTime(n, t, start="09:00"):
 
 def solution(n, t, m, timetable):
     answer = ''
-    RunningTime = defaultdict(list)
     crew = sorted([timeTomin(t) for t in timetable if t != "23:59"])  # 오름차순 정렬
     shuttle = shuttleTime(n, t)
     assign = defaultdict(list)
