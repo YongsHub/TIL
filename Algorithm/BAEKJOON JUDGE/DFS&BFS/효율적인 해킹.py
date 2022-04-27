@@ -1,6 +1,6 @@
 import sys
 from collections import deque
-
+# 메모리 초과에 대한 이슈를 해결하는데 오래걸렸다 -> 방문기록을 남기자
 N, M = map(int, sys.stdin.readline().split())
 graph = [[] for _ in range(N + 1)]
 
