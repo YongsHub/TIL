@@ -65,4 +65,10 @@ nest new ./
 
 > 게시판에서 title과 description의 property같은 경우는 개수가 적기 때문에 편하겠지만 정말 많은 프로퍼티를 갖고 여러군데에서 이용하며 갑자기 한 곳에서 Property 이름을 바꿔줘야한다면 어떻게 해야할까? 이렇게 되면 애플리케이션을 유지보수하기 힘들어질 수 있다. 따라서 DTO를 이용하자!
 
+## PIPE는 무엇인가?
 
+> @Injectable 데코레이터로 주석이 달린 클래스입니다. 파이프는 data transformation 과 data validation을 위해 사용합니다. 파이프는 컨트롤러 경로 처리기에 의해 처리되는 인수에 대해 작동합니다. Nest는 메소드가 호출되기 직전에 파이프를 삽입하고 파이프는 메소드로 향하는 인수를 수신하고 이에 작동함.
+
+## PIPE 사용하는 법
+
+> Handler - level Pipe, Parameter - level Pipe, Global - level Pipe 3가지 방법이 존재합니다. 기본적으로 사용할 수 있는 PIPE는 6가지가 존재한다.
