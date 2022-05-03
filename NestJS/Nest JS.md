@@ -72,3 +72,14 @@ nest new ./
 ## PIPE 사용하는 법
 
 > Handler - level Pipe, Parameter - level Pipe, Global - level Pipe 3가지 방법이 존재합니다. 기본적으로 사용할 수 있는 PIPE는 6가지가 존재한다.
+
+- ValidationPipe
+- ParseIntPipe
+- ParseBoolPipe
+- ParseArrayPipe
+- ParseUUIDPipe
+- DefaultValuePipe
+
+## 커스텀 파이프 구현 방법
+
+> 먼저 PipeTransform이란 인터페이스를 새롭게 만들 커스텀 파이프에 구현해주어야 한다. 그리고 이것과 함께 모든 pipe는 transform() 메서드를 필요로 함. 이 메서드는 Nest JS가 인자를 처리하기 위해 사용된다.
