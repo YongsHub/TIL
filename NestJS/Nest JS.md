@@ -83,3 +83,11 @@ nest new ./
 ## 커스텀 파이프 구현 방법
 
 > 먼저 PipeTransform이란 인터페이스를 새롭게 만들 커스텀 파이프에 구현해주어야 한다. 그리고 이것과 함께 모든 pipe는 transform() 메서드를 필요로 함. 이 메서드는 Nest JS가 인자를 처리하기 위해 사용된다.
+
+## TypeORM (Object Relational Mapping) 소개
+
+> TypeORM은 node.js에서 실행되고 TypeScript로 작성된 객체 관계형 매핑 라이브러리이다. TypeORM은 MySQL, PostgreSQL, MariaDB, SQLite, MS SQL Server, Oracle 등등 여러 데이터 베이스를 지원한다.
+
+> ORM은(Object Relational Mapping)이란 객체와 관계형 데이터베이스의 데이터를 자동으로 변형 및 연결하는 작업입니다. ORM을 이용한 개발은 객체와 데이터베이스의 변형에 유연하게 사용할 수 있습니다. 객체지향 프로그래밍은 클래스를 사용, 관계형 데이터베이스는 테이블을 사용하는데 이들 간의 매핑을 해준다.
+
+> TypeORM 특징과 이점, 모델을 기반으로 데이터베이스 테이블 체계를 자동으로 생성. 데이터베이스에서 개체를 쉽게 삽입, 업데이트 및 삭제가 가능하다. 테이블 간의 매핑을 만듬. 간단한 CLI 명령을 제공, TYPEORM은 간단한 코딩으로 ORM 프레임워크를 사용하기 쉬움.
