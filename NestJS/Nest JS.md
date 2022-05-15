@@ -175,3 +175,9 @@ imports: [
 ### 📌 Passport, Jwt 이용해서 토큰 인증 후 유저 정보 가져오기
 
 - JWT를 이용하여 유저가 로그인 할 때 토큰을 생성해줬었는데, 이제는 그 유저가 요청을 보낼 때 그 요청 안에 있는 Header에 토큰을 넣어서 요청을 보내는데 요청 안에 Payload가 있다. 그리고 payload 안에 유저 이름을 넣어줬었는데 토큰이 유효한 토큰인지 서버에서 secret text를 이용해서 알아내면 payload 안에 유저 이름을 이용해서 데이터베이스 안에 있는 유저 이름에 해당하는 유저 정보를 모두 가져올 수 있다. 이러한 처리를 쉽게 해주는게 Passport 모듈이다. 그래서 Passport 모듈을 이용해서 이 부분을 구현해보자.
+
+### Nest JS에서 각각의 미들웨어가 불러지는 (called) 순서
+
+> middleware -> guard -> interceptor (before) -> pipe -> controller -> service -> controller -> interceptor (after) -> filter(if applicable) -> client
+
+### UserGuards(AuthGuard())를 이용해서 이 사람이 요청을 줄 때 올바른 토큰을 가지고 요청을 주는지 본 후에 게시물에 접근 할 권한을 줄 수 있다. 그리고 이 AuthGuard는 각각의 라우트 별로 줄 수도 있고 한번에 하나의 컨트롤러 안에 들어있는 모든 라우터에 줄 수도 있다
