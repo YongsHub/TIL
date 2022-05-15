@@ -103,3 +103,34 @@ nest new ./
 ## remove() vs delete()
 
 > remove: 무조건 존재하는 아이템을 remove 메소드를 이용해서 지워야 한다. 그러지 않으면 에러가 발생함. <br> delete: 만약 아이템이 존재하면 지우고 존재하지 않으면 아무런 영향이 없다. 이러한 차이 때문에 remove를 이용하면 하나의 아이템을 지울 때 두번 데이터베이스를 이용해야 하기 때문에 (아이템 유무 + 지우기) 데이터베이스에 한번만 접근해도 되는 delete메서드를 사용하자. 다큐멘테이션은 https://github.com/typeorm/typeorm/blob/master/docs/repository-api.md
+
+# AuthModule
+
+## 📌 AuthController, UserEntity, AuthService, UserRepository, JWT, Passport 등등
+
+## CLI를 이용한 모듈 컨트롤러 서비스 생성
+
+- nest g module auth : auth 모듈 생성
+- nest g controller auth --no-spec : auth 컨트롤러 생성
+- nest g service auth --no-spec : auth 서비스 생성
+
+## 📎 User를 위한 Entity 생성
+
+유저에 대한 인증을 하는 것이니 유저가 필요하다. 그래서 유저 데이터를 위한 유저 Entity를 생성.
+
+1. user.entity.ts 파일 생성
+2. 파일 소스 코드 작성
+
+## 📎 Repository 생성
+
+User Entity를 생성, 수정, 삭제등의 로직을 처리하기 위해서 Repository를 생성
+
+1. user.repository.ts 파일 생성
+2. 소스 코드 작성
+
+```
+ex) user module안에 foreFeature의 기능!
+imports: [
+    TypeOrmModule.forFeature([BoardRepository]) forFeature는 이 모듈 안에 레파지토리를 등록해주는 역할.
+]
+```
