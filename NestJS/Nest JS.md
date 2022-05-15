@@ -134,3 +134,44 @@ imports: [
     TypeOrmModule.forFeature([BoardRepository]) forFeature는 이 모듈 안에 레파지토리를 등록해주는 역할.
 ]
 ```
+
+## 중복된 닉네임을 방지하기 위해서
+
+1. repository에서 findOne 메소드를 이용해서 이미 같은 유저 이름을 가진 아이디가 있는지 확인하고 없다면 데이터를 저장하는 방법. 하지만 이 방법은 데이터베이스 처리를 두번 해줘야 한다.
+
+- @unique(['usernmae']) 과 같은 데코레이터를 이용할 수 있다.
+  테스트 해보면 이미 있는 유저를 다시 생성하려 하면 아래와 같은 에러가 나온다. 하지만 그냥 500 에러를 던져버리는데, 그 이유는 Nest JS에서 에러가 발생하고 그걸 try catch 구문인 catch에서 잡아주지 않는다면 이 에러가 Controller 레벨로 가서 500 에러를 던져 버린다.
+
+따라서, try catch 구문으로 에러를 잡아줘야한다.
+
+## 📎 비밀번호 암호화 하기
+
+> bcryptjs : 이 기능을 구현하기 위해서 bcryptjs 모듈을 사용
+
+- npm install bcrypt --save
+
+## 비밀번호를 데이터베이스에 저장하는 방법
+
+1. 1234 -> 1234 (최악의 방법)
+2. 비밀번호를 암호화 키와 함께 암호화 (양방향) : 암호화 키가 노출되면 알고리즘은 대부분 오픈되어 있기 때문에 위험도가 높다.
+3. SHA256 복호화는 불가능하지만 레인보우 테이블을 이용해 알아낼 수 있다.
+4. 솔트(salt) + 비밀번호(Plain Password)를 해시로 암호화 해서 저장 === bcrpyt
+   bcrypt.genSalt() bcrypt.hash(password, salt);
+
+### ❗️ 로그인을 할 때, 로그인한 고유 유저를 위한 토큰을 생성해야 하는데 그 토큰을 생성할 때 JWT라는 모듈을 사용함.
+
+### 📌 JWT 개념 다시 한번 정리하기
+
+- JWT(JSON Web Token)는 당사자간에 정보를 JSON 개체로 안전하게 전송하기 위한 컴팩트하고 독립적인 방식을 정의하는 개방형 표준 (RFC 7519)이다. 이 정보는 디지털 서명이 되어 있으므로 확인하고 신뢰할 수 있습니다. 간단하게 얘기 하자면 정보를 안전하게 전할 때 혹은 유저의 권한 같은 것을 체크를 하기 위해서 사용하는데 유용한 모듈이다.
+
+필요한 모듈 설치하기
+
+- @nestjs/jwt : nestjs에서 jwt를 사용하기 위해 필요한 모듈
+- @nestjs/passport : nestjs에서 passport를 사용하기 위해 필요한 모듈
+- passport : passport 모듈
+- passport-jwt : jwt 모듈
+- npm i @nestjs/jwt @nestjs/passport passport passport-jwt --save
+
+### 📌 Passport, Jwt 이용해서 토큰 인증 후 유저 정보 가져오기
+
+- JWT를 이용하여 유저가 로그인 할 때 토큰을 생성해줬었는데, 이제는 그 유저가 요청을 보낼 때 그 요청 안에 있는 Header에 토큰을 넣어서 요청을 보내는데 요청 안에 Payload가 있다. 그리고 payload 안에 유저 이름을 넣어줬었는데 토큰이 유효한 토큰인지 서버에서 secret text를 이용해서 알아내면 payload 안에 유저 이름을 이용해서 데이터베이스 안에 있는 유저 이름에 해당하는 유저 정보를 모두 가져올 수 있다. 이러한 처리를 쉽게 해주는게 Passport 모듈이다. 그래서 Passport 모듈을 이용해서 이 부분을 구현해보자.
