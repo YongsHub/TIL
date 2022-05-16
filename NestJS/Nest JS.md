@@ -181,3 +181,15 @@ imports: [
 > middleware -> guard -> interceptor (before) -> pipe -> controller -> service -> controller -> interceptor (after) -> filter(if applicable) -> client
 
 ### UserGuards(AuthGuard())를 이용해서 이 사람이 요청을 줄 때 올바른 토큰을 가지고 요청을 주는지 본 후에 게시물에 접근 할 권한을 줄 수 있다. 그리고 이 AuthGuard는 각각의 라우트 별로 줄 수도 있고 한번에 하나의 컨트롤러 안에 들어있는 모든 라우터에 줄 수도 있다
+
+# 로그의 종류
+
+- Log - 중요한 정보의 범용 로깅
+- Warning - 치명적이거나 파괴적이지 않은 처리되지 않은 문제
+- Error - 치명적이거나 파괴적인 처리되지 않은 문제
+- Debug - 오류 발생 시 로직을 디버그하는 데 도움이 되는 유용한 정보 (개발자 용)
+- Verbose - 응용 프로그램의 동작에 대한 통찰력을 제공하는 정보 (운영자 용)
+
+## 로그를 처리하기 위해서 사용하는 모듈
+
+- express js를 사용할 때는 Winston이란 모듈을 주로 사용 하지만 nestjs에서 이미 built-in 된 logger 클래스가 존재
