@@ -7,3 +7,6 @@ IAM이란? AWS에서 제공하는 서비스의 접근 방식과 권한을 관리
 
 GitHub Action에서 IAM관련 파일을 작성해주고 CodeDeploy에서 EC2에 접근하도록 작성해야한다.
 ```
+
+
+
