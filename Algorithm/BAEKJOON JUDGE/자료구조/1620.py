@@ -14,7 +14,7 @@ for i in range(1, N + 1):
 problems = [input().rstrip() for _ in range(M)]
 
 for problem in problems:
-    if problem.isnumeric():
+    if problem.isnumeric():  # 숫자라면
         print(numbers[int(problem)])
     else:
         print(names[problem])
