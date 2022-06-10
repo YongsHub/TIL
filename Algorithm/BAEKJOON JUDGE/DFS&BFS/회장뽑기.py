@@ -29,6 +29,7 @@ def bfs(deq):
     return visited
 
 
+print(graph)
 for start in range(1, N + 1):
     deq = deque()
     deq.append(start)
