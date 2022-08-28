@@ -1,4 +1,5 @@
 import sys
+sys.setrecursionlimit(10 ** 9)
 from collections import deque
 
 input = sys.stdin.readline
@@ -14,20 +15,19 @@ visited = [[0] * C for _ in range(R)]
 
 
 def bfs(nx, ny):
-    cnt = 0
+    maxRow = 0
     deq = deque([(nx, ny)])
     while deq:
         x, y = deq.popleft()
         visited[x][y] = 1
-        if x == R - 1:
-            cnt += 1
+        maxRow = max(maxRow, x)
         for i in range(4):
             nx, ny = x + dx[i], y + dy[i]
             if nx < 0 or nx >= R or ny < 0 or ny >= C or visited[nx][ny] or cave[nx][ny] == '.':
                 continue
             else:
                 deq.append((nx, ny))
-    return cnt
+    return maxRow
 
 
 def maxCheck(row):
@@ -49,20 +49,11 @@ def maxCheck(row):
     return maxCnt
 
 
-def topDown():
+def topDown(maxRow):
     global R, C
-    for i in range(R - 1, -1, -1):
-        check = False
-        for j in range(C):
-            if visited[i][j] == 1:
-                row = i
-                check = True
-                break
-        if check: break
-
-    maxCnt = maxCheck(row)
+    maxCnt = maxCheck(maxRow)
     if maxCnt != 0:
-        for i in range(R - 1, -1, -1):
+        for i in range(maxRow, -1, -1):
             for j in range(C):
                 if visited[i][j] == 1:
                     visited[i][j] = 0
@@ -97,9 +88,9 @@ for i in range(N):
             if nx < 0 or nx >= R or ny < 0 or ny >= C or visited[nx][ny] or cave[nx][ny] == '.':
                 continue
             else:
-                cnt = bfs(nx, ny)
-                if cnt == 0:  # 내려줘야하는 작업이 필요하다면
-                    topDown()
+                maxRow = bfs(nx, ny)
+                if maxRow != R - 1:  # 내려줘야하는 작업이 필요하다면
+                    topDown(maxRow)
                 else:
                     visited = [[0] * C for _ in range(R)]
 for i in range(R):
