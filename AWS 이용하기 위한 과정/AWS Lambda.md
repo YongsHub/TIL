@@ -19,3 +19,62 @@
 > 람다 트리거란? 람다 함수를 실행할 수 있는 이벤트를 일컫는다. 간단하게, S3에 파일이 적재되면 이를 이벤트로 받아 람다 함수를 실행 할 수도 있고, 브라우저에 URL을 치면 Rest API로서 람다 함수를 실행 할 수도 있다. 이처럼 람다는 다른 AWS 서비스와 유기적으로 연동될 수 있다는 점에서 굉장히 파워풀 하다고 볼 수 있다.
 
 ### 이벤트 처리
+
+```
+service: dongchin-api
+
+frameworkVersion: '3'
+
+package:
+  exclude:
+    - node_modules/**
+
+plugins:
+  - serverless-plugin-optimize
+  - serverless-dotenv-plugin
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  region: ap-northeast-2
+  timeout: 20
+  stage: ${opt:stage, 'dev'}
+
+functions:
+  api:
+    handler: dist/main.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'
+
+resources:
+  Resources:
+    GatewayResponseDefault4XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_4XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+    GatewayResponseDefault5XX:
+      Type: 'AWS::ApiGateway::GatewayResponse'
+      Properties:
+        ResponseParameters:
+          gatewayresponse.header.Access-Control-Allow-Origin: "'*'"
+          gatewayresponse.header.Access-Control-Allow-Headers: "'*'"
+        ResponseType: DEFAULT_5XX
+        RestApiId:
+          Ref: 'ApiGatewayRestApi'
+
+custom:
+  optimize:
+    external: ['swagger-ui-dist']
+
+```
