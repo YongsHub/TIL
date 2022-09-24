@@ -466,3 +466,5 @@ heapq는 다익스트라 최단 경로 알고리즘을 포함해 우선순위 �
 
 따라서, 힙 정렬을 heapq로 구현해보자!
 ```
+
+## isinstance('[]', list) 시 true or false 반환
