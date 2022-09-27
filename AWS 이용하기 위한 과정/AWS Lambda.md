@@ -78,3 +78,10 @@ custom:
     external: ['swagger-ui-dist']
 
 ```
+
+## Swagger
+
+```
+import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger'
+DocumentBuilder.addServer('/') 및 DocumentBuilder.addServer('/dev')를 통해서 Swagger 내에서 Test 경로를 추가할 수 있다.
+```
