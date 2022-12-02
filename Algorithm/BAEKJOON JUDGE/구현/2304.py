@@ -52,16 +52,17 @@ for node in next_node:
         new_node.append(node)
     else:
         while True:
-            if new_node[-1][1] < node[1]:
+            if len(new_node) == 0:
+                new_node.append(node)
+                break
+            elif new_node[-1][1] < node[1]:
                 new_node.pop()
             else:
                 new_node.append(node)
                 break
 
-
-# for value in new_node:
-#     location, height = value[0], value[1]
-    
-
-
-
+for value in new_node:
+    location, height = value[0], value[1]
+    answer += (location - current_location) * height
+    current_location = location
+print(answer)
