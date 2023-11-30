@@ -82,3 +82,74 @@ ASM 모듈은 클래스 바이트코드 조작 및 분석 프레임워크인 ASM
 - 프로파일러
 - 최적화
 - 로깅
+
+## Reflection
+
+클래스 로딩이 끝나면 위에서 클래스 타입의 인스턴스를 Heap에 넣어준다고 이야기 했었다.
+
+- 필드나 메서드들을 가져올 수 있음
+- 접근제어자가 private이어도 접근 가능
+- isPrivate, isPublic 등등 조회가 가능
+- Modifier가 제공하는 것을 통해 할 수 있음
+- method의 paramter, return type 등등 알 수 있음
+
+### Reflection API
+
+### Annotation 과 Reflection
+
+- 애노테이션을 만들고 임의의 클래스(Book.class)에 애노테이션을 사용했을때 Book.class.getAnnotations()를 해서 출력해보면 아무것도 출력하지 않는다. Why?
+
+  - Retention으로 Runtime을 지정해주지 않는다면, 해당 java 파일이 바이트 코드로 변환될때 참고하고 있지 않음
+
+### Reflection을 활용한 적극적인 활용
+
+```Java
+public class Book {
+  public static String A = "A";
+  private String B = "B";
+
+  public Book() {}
+
+  public Book(String b) {
+    B = b;
+  }
+
+  public void c() {
+    System.out.println("C");
+  }
+
+  public int sum(int left, int right) {
+    return left + right;
+  }
+}
+```
+
+```Java
+public static void main(String[] args) {
+  Class<?> bookClass = Class.forName("taeyong.Book");
+  Constructor<?> constructor = bookClass.getConstructor(String.class);
+  Book book = (Book) constructor.newInstance("myBook"); // String value가 필요한 생성자
+
+  Field a = Book.class.getDeclaredField("A");
+  System.out.println(a.get(null));// null인 이유? a는 static Field기 때문에 인스턴스가 따로 필요 없음
+  a.set(null, "AAAAAA");
+  System.out.println(a.get(null)); // 값이 바뀜
+}
+```
+
+### 나만의 DI 프레임워크 만들기
+
+@Inject 라는 애노테이션 만들어서 필드 주입 해주는 컨테이너 서비스 만들기
+
+```Java
+public class BookService {
+  @Inject
+  BookRepository bookRepository;
+}
+
+
+ContainerService.java
+public static <T> getObject(T classType)
+```
+
+애노테이션을 활용한 DI가 Reflection을 통해 주입해주는 과정을 만들 수 있다.
