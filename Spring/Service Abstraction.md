@@ -104,6 +104,58 @@ public void upgradeLevels() throws Exception {
 
 | 서비스 레이어와 로우레벨의 트랜잭션 기술과 API의 변화에 상관없이 일관된 API를 가진 추상화 계층을 활용해야함
 
+### 메일 발송 기능 추상화
+
+JavaMail은 확장이나 지원이 불가능하도록 만들어진 악명 높은 표준 API중 하나이다.
+
+JavaMail 대신 테스트용 JavaMail로 대체를 어떻게 할까?
+서비스 추상화를 적용하면 된다.
+
+스프링은 JavaMail에 대한 추상화 기능을 제공하고 있다.
+
+```Java
+public interface MailSender {
+    void send(SimpleMailMessage simpleMessage) throws MailException;
+    void send(SimpleMailMessage[] simpleMessages) throws MailException;
+}
+```
+
+이 인터페이스는 SimpleMailMessage라는 인터페이스를 구현한 클래스에 담긴 메일 메시지를 전송하는 메소드로만 구성되어 있는데, 기본적으로 JavaMail을 사용해 메일 발송 기능을 제공하는 JavaMailSenderImpl을 사용하면 됨
+
+```Java
+private void sendUpgradeEmail(User user) {
+    JavaMailSenderImpl mailSender = new JavaMailMessage();
+    mailSender.setHost("mail.server.com");
+
+    SimpleMailMessage mailMessage = new SimpleMailMessage();
+    mailMessage.setTo(user.getEmail());
+    ...
+
+    mailSender.send(mailMessage);
+}
+```
+
+**복잡한 코드는 정리됐지만 JavaMail API를 사용하는 JavaMailSenderImpl 클래스의 오브젝트를 코드에서 직접 사용하기 때문에 JavaMail API를 사용하지 않는 테스트용 오브젝트로 대체할 수는 없다**
+
+그렇다면 무엇을 해야할까?
+
+Spring의 DI를 적용할 차례다. 원하는건 실제 JavaMail을 사용하지 않고 메일 발송 기능이 포함된 코드를 테스트하는 것이다.
+
+Spring이 제공한 메일 전송 기능에 대한 인터페이스가 있으니 이를 구현해서 테스트용 메일 전송 클래스를 만드는 것이다.
+
+**아무런 기능이 없는 MailSender 구현 빈 클래스**
+
+```Java
+public class DummyMailSender implements MailSender {
+    public void send(SimpleMailMessage simpleMessage) throws MailException;
+    public void send(SimpleMailMessage[] simpleMessages) throws MailException;
+}
+```
+
+DummyMailSender는 MailSender 인터페이스를 구현했을 뿐, 하는 일이 없음
+
+따라서, 트랜잭션과 같이 추상화를 말할 수도 있지만, 테스트를 어렵게 만드는 건전하지 않은 방식으로 설계된 API를 사용할 때도 유용하게 쓰일 수 있다.
+
 ## 결론
 
 - 트랜잭션 경계 설정 코드가 비즈니스 로직 코드에 영향을 주지 않게 하려면 스프링이 제공하는 트랜잭션 서비스 추상화를 이용
