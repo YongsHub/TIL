@@ -4,6 +4,8 @@
 
 ### JVM의 역할
 
+![JVM](../img/JVM.jpeg)
+
 - 자바 가상 머신으로 자바 바이트 코드를 OS에 특화된 코드로 변환하여 실행합니다. 따라서 특정 플랫폼에 종속적입니다
 - 우리가 HelloJava.java를 만들었을때 컴파일 하면 class 파일이 생성되는데 class 파일에 들어있는 것이 바이트 코드입니다.
   그 이후에 JIT과 인터프리터를 통해 실행됨
@@ -37,7 +39,7 @@ Java
 - 로딩
 
   - 클래스 로더가 .class 파일을 읽고 그 내용에 따라 적절한 바이너리 데이터를 만들고 "메소드 영역"에 저장
-  - 이때 메소드 영역에 저장하는 데이터는 FQCN, class | interface | enum, method와 변수를 저장
+  - 이때 메소드 영역에 저장하는 데이터는 FQCN(Full Qualifed Class Name), class | interface | enum, method와 변수를 저장
   - 로딩이 끝나면 해당 클래스 타입의 Class 객체를 생성하여 "힙" 영역에 저장
 
 - 링크
@@ -94,6 +96,24 @@ ASM 모듈은 클래스 바이트코드 조작 및 분석 프레임워크인 ASM
 - method의 paramter, return type 등등 알 수 있음
 
 ### Reflection API
+
+리플렉션의 시작은 Class<T>
+
+- 모든 클래스는 클래스 로더를 통해 로딩 과정을 거친 후, 힙 영역에 Class<T>의 인스턴스가 생김
+  "타입.class"로 접근할 수 있음
+- 모든 인스턴스는 getClass() 메소드를 가지고 있음
+- 클래스를 문자열로 읽어오는 방법
+  - Class.forName("FQCN") -> Full Qualified ClassName
+  - Class Path에 해당 클래스가 없으면 ClassNotFoundException 발생
+
+**리플렉션 사용시 주의할 것**
+
+- 지나친 사용은 성능 이슈를 야기할 수 있음
+- 컴파일 타임에 확인되지 않고 런타임 시에만 발생하는 문제를 만들 가능성이 있음
+- 접근 지시자를 무시할 수 있음
+
+Spring에서는 의존성 주입이나 MVC 뷰에서 넘어온 데이터를 객체에 바인딩 할 때
+하이버네이트에서는 @Entity 클래스에 Setter가 없다면 Reflection을 사용함
 
 ### Annotation 과 Reflection
 
