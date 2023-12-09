@@ -173,3 +173,83 @@ public static <T> getObject(T classType)
 ```
 
 애노테이션을 활용한 DI가 Reflection을 통해 주입해주는 과정을 만들 수 있다.
+
+## Spring Data JPA
+
+Repository를 사용할때 interface로 선언한 repository가 어떻게 빈이 주입이 되는지 궁금할 것이다.
+
+그 기술의 원천은 Spring AOP의 기술인 Proxy를 활용하여 진행되어 있다.
+Spring Data JPA는 결국 로우 단계에서 InvocationHandler를 활용하고 있다.
+
+확인할 수 있는 방법은
+
+- ProxyFactory는 다이나믹 프록시의 추상화된 것
+- RepositoryFactorySupport에서 프록시를 생성한다.
+
+`Proxy Pattern이 왜 탄생했을까에 대해 고민할 필요가 있다.`
+
+- SRP를 떠올리면 좋을 것
+
+* Proxy Pattern을 Dynamic Proxy를 이용한 방법으로 사용하지 않다보면 인터페이스의 추가되는 메서드마다 대응을 해야 하고, 프록시가 프록시를 감싸는 케이스, 코드의 중복들이 일어날 수 있다.
+
+따라서 Reflection을 활용한 Dynamic Proxy방법을 확인해보자
+
+```Java
+public class BookServiceTest {
+  BookService bookService = (BookService) Proxy.newProxyInstance(BookService.class.getClassLoader(), new Class[]{BookService.class}, new InvocationHandler() {
+    @Override
+    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+      if(method.getName().equals("rent")) {
+        System.out.println("aaaa");
+        Object invoke = method.invoke(bookService, args);
+        System.out.println("bbbb");
+        return invoke;
+      }
+
+      return method.invoke(bookService, args);
+    }
+  });
+}
+```
+
+`위와 같이 ProxyInstance를 활용해서 Dynamic하게 할 수 있는데 유연한 구조는 아니다`
+
+따라서, AOP를 더 자세히 알기 위해서는 토비의 스프링 AOP를 참고!
+
+BookService가 interface가 아니라면? Interface만을 지원하기 때문에 Proxy를 생성할 수가 없다.
+
+따라서 클래스의 프록시가 필요하다면?
+
+서브 클래스를 만들 수 있는 라이브러리를 사용하여 프록시를 만들 수 있습니다.
+
+**CGlib**
+
+- 스프링, 하이버네이트가 사용하는 라이브러리
+
+Enhancer를 가지고 create할 수 있음
+하지만 handler를 만들어서 넘겨줘야함
+
+```Java
+MethodInterceptor handler = new MethodInterceptor() {
+  BookService bookService = new BookService();
+  @Override
+  public Object intercept(Object o, Method method, Object[] args, MethodProxy methodProxy) throws Throwable {
+    ...
+  }
+}
+
+BookService bookSerivce = (BookService) Enhancer.create(BookService.class, handler);
+```
+
+**ByteBuddy**
+
+- ByteBuddy는 Spring에서 Version 관리를 해주고 있음
+
+ByteBuddy나 CGLib 모두 상속을 지원하지 않는 클래스라면
+Ex) final class, 생성자가 private한 생성자만 존재할 경우
+클래스 타입의 프록시를 생성할 수 없다.
+
+따라서, interface를 만들어서 사용하는 것이 좋을 것이다.
+
+런타임이 아닌, 컴파일 때 소스 코드의 변경을 만들 수 있는 방법도 있는데
+해당 방법은 다른 파일에서 확인해보겠습니다.
